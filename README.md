@@ -22,7 +22,7 @@ Batman’s **eyes and lips** also change color on hover, giving it a dramatic ef
 ## 📂 Project Structure
 ```text
 dark-knight-css-art/
-├── batman.html   # Main HTML file
+├── index.html   # Main HTML file
 ├── batman.css    # CSS styling
 └── README.md     # Project documentation
 ```
@@ -38,7 +38,7 @@ dark-knight-css-art/
    ```bash
    cd dark-knight-css-art
    ```
-3. **Open `batman.html` in your browser**
+3. **Open `index.html` in your browser**
 
 ---
 
