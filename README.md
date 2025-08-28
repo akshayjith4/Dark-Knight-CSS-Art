@@ -66,7 +66,7 @@ dark-knight-css-art/
 ---
 
 ## 🌍 Live Demo
-👉 [Dark Knight CSS Art](https://akshayjith4.github.io/dark-knight-css-art/)  
+👉 [Dark Knight CSS Art](https://akshayjith4.github.io/Dark-Knight-CSS-Art/)  
 
 ---
 
