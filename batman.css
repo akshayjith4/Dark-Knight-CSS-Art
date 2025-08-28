@@ -1,0 +1,456 @@
+/* ========================= */
+/* Night sky background */
+/* ========================= */
+body {
+    margin: 0;                  /* remove default browser margin */
+    overflow-x: hidden;         /* prevent horizontal scroll */
+    background-color: #555557;  /* solid grey background */
+    display: flex;              /* flexbox layout */
+    flex-direction: column;     /* arrange children vertically */
+    align-items: center;        /* center children horizontally */
+}
+
+/* ========================= */
+/* Bat-Signal container (top) */
+/* ========================= */
+.canvas {
+    width: 90vmin;              /* responsive square container */
+    height: 90vmin;
+    position: absolute;
+    top: 1rem;                  /* small gap from top */
+    left: 50%;
+    transform: translateX(-50%); /* center horizontally */
+}
+
+/* ========================= */
+/* Batman scene (below signal) */
+/* ========================= */
+.scene {
+    margin-top: 90vmin;          /* push Batman below Bat-Signal */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    z-index: 10;                 /* ensure Batman is on top */
+}
+
+/* ========================= */
+/* Bat-Signal light (beam) */
+/* ========================= */
+.batsymbol {
+    width: 100%;
+    height: 30%;
+    background: white;          /* white by default */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: relative;
+    mix-blend-mode: normal;     /* normal blending */
+    transition: background 0.3s ease; /* smooth change on hover */
+}
+
+/* On hover → Bat-Signal turns black */
+.batsymbol:hover {
+    background: black;
+}
+
+/* ========================= */
+/* Bat symbol cutout shapes */
+/* ========================= */
+.circle-1,
+.circle-2,
+.circle-3,
+.circle-4,
+.square-1,
+.square-2,
+.square-3 {
+    position: absolute;
+    background: #555557;        /* same as background → looks like cutouts */
+}
+
+/* Wing cutouts (bottom left/right semi-circles) */
+.circle-1 {
+    width: 60%;
+    height: 80%;
+    border-radius: 50%;        /* makes it circular */
+    bottom: -40%;
+    left: -10%;
+}
+.circle-2 {
+    width: 60%;
+    height: 80%;
+    border-radius: 50%;
+    bottom: -40%;
+    right: -10%;
+}
+/* Wing cutouts (top left/right semi-circles) */
+.circle-3 {
+    width: 60%;
+    height: 100%;
+    border-radius: 50%;
+    top: -7%;
+    left: -45%;
+}
+.circle-4 {
+    width: 60%;
+    height: 100%;
+    border-radius: 50%;
+    top: -7%;
+    right: -45%;
+}
+
+/* Bat ears */
+.square-1 {
+    width: 12%;
+    height: 40%;
+    border-radius: 0 0 40% 90%; /* curves bottom edges */
+    top: -10%;
+    left: 33%;
+}
+.square-2 {
+    width: 12%;
+    height: 40%;
+    border-radius: 0 0 90% 40%;
+    top: -10%;
+    right: 33%;
+}
+
+/* Bat head middle peak */
+.square-3 {
+    width: 12%;
+    height: 28%;
+    top: -5%;
+    left: 50%;
+    transform: translate(-50%, -10%);
+    clip-path: polygon(0% 0%, 100% 0, 75% 100%, 25% 100%); /* creates triangle */
+}
+
+/* ========================= */
+/* Variables for Batman body */
+/* ========================= */
+:root {
+    --bat-face-w: 20vmin;                /* base face width */
+    --bat-face-h: calc(var(--bat-face-w) * 1.7); /* proportional face height */
+    --mouth-width: calc(var(--bat-face-w) * 0.8);
+    --torso-width: calc(var(--bat-face-w) * 2.9);
+    --torso-height: calc(var(--bat-face-h) / 3.25);
+    --torso-y: calc(var(--bat-face-h) - 0.25vmin);
+    --eye-height: calc(var(--bat-face-w) / 6.1);
+
+    /* Colors */
+    --batman-color: #000; /* black */
+}
+
+/* ========================= */
+/* Batman main container */
+/* ========================= */
+.scene {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.batman {
+    width: calc(var(--bat-face-w) * 2);
+    height: calc(var(--bat-face-w) * 3);
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    bottom: -10vmin;
+}
+
+/* ========================= */
+/* Batman face (triangle) */
+/* ========================= */
+.batman__face {
+    --bat-face-side: calc(var(--bat-face-h) / 10);
+
+    width: var(--bat-face-w);
+    height: 0;
+    border-bottom: var(--bat-face-h) solid var(--batman-color); /* main triangle */
+    border-left: var(--bat-face-side) solid transparent;
+    border-right: var(--bat-face-side) solid transparent;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+/* Batman ears */
+.batman__face::before,
+.batman__face::after {
+    --ear-slant: calc(var(--bat-face-h) / 10);
+    --ear-width: calc(var(--bat-face-h) / 4);
+    --ear-tilt: calc(var(--ear-width) / 10);
+
+    content: "";
+    height: 0;
+    width: 0;
+    border-style: solid;
+    border-color: transparent transparent var(--batman-color) transparent;
+    position: absolute;
+    top: calc(var(--ear-width) / -1.1);
+}
+.batman__face::before {
+    left: 0;
+    border-width: 0 var(--ear-slant) var(--ear-width) var(--ear-tilt);
+}
+.batman__face::after {
+    right: 0;
+    border-width: 0 var(--ear-tilt) var(--ear-width) var(--ear-slant);
+}
+
+/* ========================= */
+/* Batman eyes */
+/* ========================= */
+.batman__eyes {
+    width: 80%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    margin-top: 40%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.batman__eyes::before,
+.batman__eyes::after {
+    --eye-color: #fff;
+    --eye-width: calc(var(--bat-face-w) / 3.2);
+
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: transparent transparent var(--eye-color) transparent; /* white triangles */
+    border-width: 0 var(--eye-width) var(--eye-height) calc(var(--eye-width) / 6);
+    transition: background-color 0.5s linear, border-width 0.25s linear, margin-top 0.25s linear;
+}
+.batman__eyes::after {
+    transform: scaleX(-1); /* mirror for right eye */
+}
+
+/* ========================= */
+/* Batman mouth + nose + chin */
+/* ========================= */
+.batman__mouth {
+    --mouth-height: calc(var(--bat-face-w) / 2);
+    --chin-size: calc(var(--mouth-height) / 7.5);
+    --chin-width: calc(var(--mouth-width) - (var(--chin-size) * 1.9));
+    --nose-side-width: calc(var(--mouth-width) / 2);
+    --skin-color: #ffdbac;
+
+    width: var(--mouth-width);
+    height: var(--mouth-height);
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    margin-top: 70%;
+    background-color: var(--skin-color); /* skin tone */
+}
+
+.batman__mouth::before,
+.batman__mouth::after {
+    content: "";
+}
+
+/* Nose (black triangle) */
+.batman__mouth::before {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: calc(var(--mouth-width) * 0.2) var(--nose-side-width) 0 var(--nose-side-width);
+    border-color: var(--batman-color) transparent transparent transparent;
+}
+
+/* Chin (triangle below mouth) */
+.batman__mouth::after {
+    height: 0;
+    width: var(--chin-width);
+    border-top: calc(var(--mouth-height) / 2) solid var(--skin-color);
+    border-left: var(--chin-size) solid transparent;
+    border-right: var(--chin-size) solid transparent;
+    position: absolute;
+    top: 100%;
+}
+
+/* Lips (black polygon inside mouth) */
+.batman__lips {
+    width: 60%;
+    height: calc(var(--bat-face-w) / 3);
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-color: var(--batman-color);
+    clip-path: polygon(
+        48% 32%,
+        71% 28%,
+        87.39% 23.5%,
+        75% 23%,
+        19% 24%,
+        2.39% 15.25%,
+        21% 28%
+    );
+    transition: clip-path ease-in-out 1s 0.15s;
+}
+
+/* ========================= */
+/* Batman torso */
+/* ========================= */
+.batman__torso {
+    width: var(--torso-width);
+    height: 0;
+    border-bottom: var(--torso-height) solid var(--batman-color); /* trapezoid */
+    border-left: var(--mouth-width) solid transparent;
+    border-right: var(--mouth-width) solid transparent;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: var(--torso-y);
+}
+
+/* ========================= */
+/* Batman cape */
+/* ========================= */
+.batman__cape {
+    --chest-width: calc((var(--torso-width) / 2) + var(--mouth-width));
+    --chest-height: calc(var(--chest-width) / 2.61);
+
+    --radius-t: calc(var(--bat-face-w) / 12.1);
+    --radius-r: calc(var(--bat-face-w) * 3);
+    --radius-t1: calc(var(--bat-face-w) / 8.6);
+    --radius-r1: calc(var(--bat-face-w) * 1.618);
+
+    --shadow-b-x: calc(var(--bat-face-w) / 2.418);
+    --shadow-b-y: calc(var(--bat-face-w) / 12.09);
+    --shadow-b-s: var(--shadow-b-y);
+
+    --shadow-b-x1: calc(var(--bat-face-w) / 40.3);
+    --shadow-b-y1: calc(var(--bat-face-w) / 60.45);
+
+    --shadow-a-x: calc(var(--shadow-b-x) / 2);
+    --shadow-a-y: calc(var(--bat-face-w) / 1.56);
+    --shadow-a-s: var(--shadow-a-x);
+
+    --shadow-a-x1: calc(var(--bat-face-w) / 16.12);
+    --shadow-a-x2: calc(var(--bat-face-w) / 20);
+    --shadow-a-x3: calc(var(--bat-face-w) / 40);
+    --shadow-a-x4: var(--shadow-a-x3);
+
+    --shadow-a-y1: calc(var(--bat-face-w) / 3.2);
+    --shadow-a-y2: calc(var(--shadow-a-x3) * -1);
+    --shadow-a-y3: calc(var(--bat-face-w) / -10);
+    --shadow-a-y4: calc(var(--bat-face-w) / -5);
+
+    width: calc(var(--chest-width) * 2);
+    height: var(--chest-height);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: calc(var(--torso-height) + var(--torso-y));
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Cape halves */
+.batman__cape--left,
+.batman__cape--right {
+    width: 50%;
+    height: 100%;
+    position: relative;
+}
+
+/* Cape shading (top + lower parts) */
+.batman__cape--left::before,
+.batman__cape--left::after,
+.batman__cape--right::before,
+.batman__cape--right::after {
+    content: "";
+    display: block;
+    width: 50%;
+    height: 50%;
+    background-color: transparent;
+    position: absolute;
+    border-radius: var(--radius-t) var(--radius-r) 0 0 / var(--radius-t1) var(--radius-r1) 0 0;
+    border-top: 2px solid darkgray;
+}
+
+/* Top cape shadows */
+.batman__cape--left::before,
+.batman__cape--right::before {
+    box-shadow:
+      var(--shadow-b-x) calc(var(--shadow-b-y) * -1) 0 var(--shadow-b-s) var(--batman-color),
+      var(--shadow-b-x1) calc(var(--shadow-b-y1) * -1) 0 0 var(--batman-color);
+}
+
+/* Lower cape shadows */
+.batman__cape--left::after,
+.batman__cape--right::after {
+    top: 50%;
+    transform: translateX(100%);
+    box-shadow:
+        var(--shadow-a-x) calc(var(--shadow-a-y) * -1) 0 var(--shadow-a-s) var(--batman-color),
+        var(--shadow-a-x1) calc(var(--shadow-a-y1) * -1) 0 0 var(--batman-color),
+        var(--shadow-a-x2) var(--shadow-a-y2) 0 calc(var(--shadow-a-x2) * -1) var(--batman-color),
+        var(--shadow-a-x3) var(--shadow-a-y3) 0 0 var(--batman-color),
+        var(--shadow-a-x4) var(--shadow-a-y4) 0 0 var(--batman-color);
+}
+
+/* Mirror cape right side */
+.batman__cape--right {
+    transform: scaleX(-1);
+}
+
+/* ========================= */
+/* Hover effects (Batman alive!) */
+/* ========================= */
+.batman:hover .batman__eyes::before,
+.batman:hover .batman__eyes::after {
+    border-color: transparent transparent red transparent; /* eyes glow red */
+    margin-top: calc(var(--bat-face-w) * 0.05);            /* shift slightly */
+}
+.batman:hover .batman__lips {
+    clip-path: polygon( /* lips reshape into grin */
+        48% 32%,
+        71% 28%,
+        89% 42%,
+        75% 23%,
+        19% 24%,
+        4% 43%,
+        21% 28%
+    );
+}
+/* Tablet */
+@media (max-width: 768px) {
+    .batsymbol,
+    .batman {
+        max-width: 300px;
+    }
+}
+
+  /* Mobile */
+@media (max-width: 480px) {
+    .batsymbol,
+    .batman {
+        max-width: 220px;
+        margin-bottom: 25px;
+    }
+
+    .batman__eyes::before,
+    .batman__eyes::after {
+        width: 12%;
+        height: 12%;
+    }
+
+    .batman__lips {
+        width: 15%;
+        height: 8%;
+    }
+}
