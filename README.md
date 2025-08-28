@@ -44,11 +44,11 @@ dark-knight-css-art/
 
 ## 📸 Preview
 
-### 🖥️ Home Screen  
-![Batman Default](./assets/1.png)
+<p align="center">
+  <img src="./assets/1.png" alt="Batman 1" width="45%"/>
+  <img src="./assets/2.png" alt="Batman 2" width="45%"/>
+</p>
 
-### 👀 Hover Effect  
-![Batman Hover](./assets/2.png)
 
 ---
 
