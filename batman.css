@@ -437,20 +437,16 @@ body {
 
   /* Mobile */
 @media (max-width: 480px) {
-    .batsymbol,
+    .canvas {
+        width: 80vw;
+        height: 80vw;
+    }
+
+    .scene {
+        margin-top: 1.5rem; /* smaller gap on phones */
+    }
+
     .batman {
-        max-width: 220px;
-        margin-bottom: 25px;
-    }
-
-    .batman__eyes::before,
-    .batman__eyes::after {
-        width: 12%;
-        height: 12%;
-    }
-
-    .batman__lips {
-        width: 15%;
-        height: 8%;
+        max-width: 200px;
     }
 }
